@@ -21,7 +21,7 @@ describe UsersController do
                 :password_confirmation => "" }
     end
     it "should fail if everything is blank" do
-      lambda do 
+      lambda do
         post :create, :user => @attr
       end.should_not change( User, :count )
     end
@@ -52,6 +52,11 @@ describe UsersController do
         post :create, :user => @attr
         flash[:success].should =~ /welcome to the sample app/i
       end
+
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
     end
   end
 
@@ -70,17 +75,17 @@ describe UsersController do
       assigns(:user).should == @user
     end
 
-    it "should have the right title" do 
+    it "should have the right title" do
       get :show, :id => @user
       response.should have_selector "title", :content => @user.name
     end
-    
-    it "should include the user's name" do 
+
+    it "should include the user's name" do
       get :show, :id => @user
       response.should have_selector "h1", :content => @user.name
     end
 
-    it "should have a profile image" do 
+    it "should have a profile image" do
       get :show, :id => @user
       response.should have_selector "h1>img", :class => "gravatar"
     end
