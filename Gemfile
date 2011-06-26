@@ -12,6 +12,10 @@ group :development do
 #  gem 'hydra', :path => '/home/arturo/src/hydra/hydra'
 end
 
+group :development do
+ gem 'ruby-debug19'
+end
+
 group :test do
   gem 'rspec', '2.5.0'
   gem 'webrat', '0.7.1'
